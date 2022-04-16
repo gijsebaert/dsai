@@ -373,3 +373,73 @@ For a t-distribution with df degrees of freedom:
 
 ![confint](./img/confint.png)
 
+# H3 Hypothesetoetsen
+
+Testprocedure:
+
+1. formuleeer beide hypotheses (H<sub>0</sub> en H<sub>1</sub>)
+2. bepaal significantieniveau (𝛼)
+3. bereken test statistieken
+4. bepaal cruciale regio van de waarschijnlijkheidswaarde
+5. maak conclusies
+
+![testprocedure](./img/vbtestprocedure.png)
+![testprocedure](./img/vbtestprocedure1.png)
+
+## Waarschijnlijkheidswaarde (p-waarde)
+
+### p-waarde
+
+De 𝑝-waarde is de kans dat, indien de nulhypothese waar is, een waarde voor de teststatistiek wordt verkregen die ten minste even extreem is als de waargenomen waarde.
+
+- p-waarde < 𝛼 ⇒ weiger H<sub>0</sub>: de gevonden waarde voor x̄ is te extreem
+- p-waarde ≥ 𝛼 ⇒ weiger H<sub>0</sub> niet: de gevonden waarde voor x̄ kan nog altijd verklaart worden door toeval.
+
+![pwaarde](./img/pwaarde.png)
+
+## kritieke regio
+
+De kritieke regio is een collectie van alle waarden van de test statistieken van welke we de null hypothese kunnen verwerpen.
+
+![kritieke regio](./img/kritiekeregio.png)
+![kritieke regio grafiek](./img/kritiekeregiografiek.png)
+
+## Testen met linkse staart
+
+![ltt](./img/ltt.png)
+![ltt](./img/ltt1.png)
+
+## testen met 2 staarten
+
+![2tt](./img/2tt.png)
+
+## Samenvatting
+
+|                   |                                                                                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Doel              | Test naarmate de waarde van de populatie gemiddelde 𝜇 aan de hand van een steekproef van 𝑛 onafhankelijke waarden |
+| Voorwaarde        | De populatie heeft een willekeurige verdeling, 𝑛 is voldoende groot                                               |
+| Test type         | Two-Tailed \\ Left-Tailed \\ Right-Tailed                                                                         |
+| H<sub>0</sub>     | 𝜇 =𝜇0 \\ 𝜇 =𝜇0 \\ 𝜇=𝜇0                                                                                            |
+| H<sub>1</sub>     | 𝜇 ≠ 𝜇0 \\ 𝜇 < 𝜇0 \\ 𝜇 >𝜇0                                                                                         |
+| kritieke regio    | \|x̄\| > 𝑔 \\ 𝑥 < −𝑔 \\ 𝑥 >𝑔                                                                                       |
+| Test statistieken | [zie hier](./img/formuleTestStatistiek.png)                                                                       |
+
+
+
+## Voorwaarden Z test
+
+- steekproeven moeten random zijn
+- steekproeven moeten voldoende groot zijn (𝑛 ≥ 30)
+- test statistieken moeten normale verdeling hebben
+- de standaarafwijking van de bevolking, 𝜎, is gekend
+
+Soms zal dit niet het geval zijn en dan kan men geen Z-test gebruiken!
+
+## Fouten in hypothese testen
+
+![fouten hypothese testen](./img/foutenhyptohesetesten.png)
+
+# H4 Analyse van 2 kwalitatieve variabelen
+
+
