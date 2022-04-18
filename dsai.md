@@ -425,8 +425,6 @@ De kritieke regio is een collectie van alle waarden van de test statistieken van
 | kritieke regio    | \|x̄\| > 𝑔 \\ 𝑥 < −𝑔 \\ 𝑥 >𝑔                                                                                       |
 | Test statistieken | [zie hier](./img/formuleTestStatistiek.png)                                                                       |
 
-
-
 ## Voorwaarden Z test
 
 - steekproeven moeten random zijn
@@ -442,4 +440,173 @@ Soms zal dit niet het geval zijn en dan kan men geen Z-test gebruiken!
 
 # H4 Analyse van 2 kwalitatieve variabelen
 
+## bivariante analyse
 
+- bepalen of er een verband bestaat tussen tweeostochastische variabelen (𝑋 en 𝑌)
+- Associatie = je kan (tot op zekere hoogte) de waarde van 𝑌 voorspellen uit de waarde van 𝑋
+  - 𝑋 onafhankelijke variabele
+  - 𝑌 afhankelijke variabele
+- BELANGRIJK! Een associatie vinden impliceert GEEN oorzakelijk verband!
+
+| Onafhankelijke | Afhankelijke  | Test               | Meetwaarde              |
+| -------------- | ------------- | ------------------ | ----------------------- |
+| Qualitatieve   | Qualitatieve  | 𝜒<sup>2</sup>-test | Cramér’s 𝑉              |
+| Qualitatieve   | Quantitatieve | Two-sample 𝑡-test  | Cohen’s 𝑑               |
+| Quantitatieve  | Quantitatieve | -                  | Regression, correlation |
+
+## Contingency tables
+
+### (ook: crosstab)
+
+Zie demo code in `demo-chi-squared`.
+
+| Gender survey     | Male | Female |
+| ----------------- | ---- | ------ |
+| Strongly disagree | 0    | 4      |
+| Disagree          | 17   | 45     |
+| Neutral           | 23   | 91     |
+| Agree             | 12   | 53     |
+| Strongly Agree    | 0    | 5      |
+
+#### Visualisatie
+
+![Contingency](./img/visueelContingency%20.png)
+
+Margin totals:
+
+| Gender survey     | Male   | Female  | Total   |
+| ----------------- | ------ | ------- | ------- |
+| Strongly disagree | 0      | 4       | **4**   |
+| Disagree          | 17     | 45      | **62**  |
+| Neutral           | 23     | 91      | **114** |
+| Agree             | 12     | 53      | **65**  |
+| Strongly Agree    | 0      | 5       | **5**   |
+| **Total**         | **52** | **198** | **250** |
+
+Expected values
+In each cell: **(row total x column total)/n**
+
+### Spreiding meten
+
+![spreiding meten](./img/spreidingmeten.png)
+
+### De chi-kwadraat statistiek
+
+![chi-kwadraat](./img/chikwadraat.png)
+
+- 𝜒 is de Griekse letter chi
+- 𝑜<sub>𝑖</sub>= nummer van observaties in de 𝑖'de cell van de contingentietabel
+- 𝑒<sub>𝑖</sub>= verwachte frequentie
+- kleine waarde = geen associatie
+- grote waarde = associatie
+
+#### Wanneer is 𝜒2 groot genoeg?
+
+- 2 x 2-tabel met 𝜒2 = 10
+  - relatief groot verschil
+  - toont associatie aan
+- 5 x 5-tabel met 𝜒2 = 10
+  - relatief klein verschil
+  - toont geen associatie aan
+
+We hebben een meeteenheid nodig ONAFHANKELIJK van de tabelgrootte
+
+### Cramér's V
+
+![Cramér's V](./img/cramers.png)
+
+Met de nummer n van observaties, k=min(numrows, numcols)
+
+| Cramér’s V | Interpretatie          |
+| ---------- | ---------------------- |
+| ≈ 0        | geen associatie        |
+| ≈ 0.1      | zwakke associatie      |
+| ≈ 0.25     | gemiddelde associatie  |
+| ≈ 0.5      | sterke associatie      |
+| ≈ 0.75     | heel sterke associatie |
+| ≈ 1        | Volledige associatie   |
+
+## Chi-kwadraat test voor onafhankelijkheid
+
+### 𝜒2 test voor onafhankelijkheid
+
+- = alternatief voor Cramér’s V om de associatie tussen kwalitatieve variabelen te onderzoeken
+- waarde van 𝜒2 gedistributeerd volgens de 𝜒2 distributie
+
+![df](./img/df.png)
+
+Import scipy.stats
+For a 𝜒2-distribution with df degrees of freedom:
+
+| functie             | doel                                                        |
+| ------------------- | ----------------------------------------------------------- |
+| chi2.pdf(x, df=d)   | Probability density for x                                   |
+| chi2.cdf(x, df=d)   | Left-tail probability𝑃(𝑋 <x)                                |
+| chi2.sf(x, df=d)    | Right-tail probability𝑃(𝑋 >x)                               |
+| chi2.isf(1-p, df=d) | p% of observations are expected to be lower than this value |
+
+## goodness-of-fit test
+
+Deze test geeft aan in welke mate een steekproef overeenkomt met een nulhypothese betreffende de verdeling van een kwalitatieve variabele over elkaar uitsluitende klassen.
+
+| type      | # steekproef | # populatie |
+| --------- | ------------ | ----------- |
+| Mutant    | 127          | 35%         |
+| Human     | 75           | 17%         |
+| Alien     | 98           | 23 %        |
+| God       | 27           | 8%          |
+| Demon     | 73           | 17%         |
+| **Total** | **400**      | **100%**    |
+
+
+- exact representatief  ⇒ 35% vam de superhelden is `mutant`.
+- De verwachte waarde daarvoor is dan ook 𝑒 = 0.35 × 400 = 140.
+
+**𝑒 = 𝑛 × 𝜋**
+
+
+Denk aan 𝜒2
+
+trek een conclusie gebaseerd op de waarde van 𝜒2:
+- klein: representatief
+- groot: niet representatief
+
+𝜒2 meet de mate van strijdigheid met de nulhypothese
+
+![superhero](./img/superhero.png)
+
+- De teststatistiek 𝜒2 volgt de 𝜒2-verdeling.
+- Kritische waarde𝑔van de 𝜒2-verdeling: deze is afhankelijk van het aantal vrijheidsgraden (𝑑𝑓). In het algemeen: **𝑑𝑓 = 𝑘 − 1** met k het nummer van categorieen
+- De kritische waarde 𝑔 voor een gegeven significantieniveau 𝛼 en aantal vrijheidsgraden 𝑑𝑓 kan in Python worden berekend met de functie isf(). **𝑃(𝜒2< 𝑔) = 1 − 𝛼**
+
+### Test procedure
+
+1. formule hypothese
+- 𝐻<sub>0</sub>: steekproef is representatief
+- 𝐻<sub>1</sub>: steekproef is niet representatief
+2. kies een significantieniveau: **𝛼 = 0.05**
+
+1. calculeer test statistieken: 
+![testformule Goodness of Fit](./img/goftestformule.png)
+  1. kritieke regio: bereken **g** zodat **𝑃(𝜒2< 𝑔) = 1 − 𝛼**
+  2. waarschijnlijkheidswaarde: bereken **𝑝 = 1 − 𝑃(𝑋 < 𝜒2)**
+
+2. conclusie: test is altijd rechtsstaartig
+  1. 𝜒2< 𝑔 ⇒ wijs 𝐻<sub>0</sub> NIET af, 𝜒2 > 𝑔 ⇒ afwijzen 𝐻<sub>0</sub>
+  2. 𝑝 > 𝛼 ⇒ wijs 𝐻<sub>0</sub> NIET af, 𝑝 < 𝛼 ⇒ afwijzen 𝐻<sub>0</sub>
+
+## Gestandaardiseerde residuen
+
+  De gestandaardiseerde residuen geven aan welke klassen de grootste bijdrage leveren aan de waarde van 𝜒2.
+
+- r<sub>i</sub> ∈ [−2,2] ⇒ acceptabele waarden
+- r<sub>i</sub> < -2 ⇒ ondervertegenwoordigd
+- r<sub>i</sub> > 2 ⇒ oververtegenwoordigd
+
+VB Conclusie: families waar alle kinderen van dezelfde gender zijn zijn oververtegenwoordigd
+
+## Cochran’s regels
+
+  Om de 𝜒2-test te kunnen toepassen, moet aan de volgende voorwaarden worden voldaan (Regel van Cochran)
+  1. Voor alle categorieën moet de verwachte frequentie𝑒 groter zijn dan 1.
+  2. In maximaal 20 % van de categorieën mag de verwachte frequentie 𝑒 minder dan 5 zijn.
